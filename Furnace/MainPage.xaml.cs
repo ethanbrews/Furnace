@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.ApplicationModel;
+using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -26,6 +29,25 @@ namespace Furnace
         public MainPage()
         {
             this.InitializeComponent();
+            
+            var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
+            var package = Package.Current;
+            AppTitleTextBlock.Text =
+                $"{package.DisplayName} {package.Id.Version.Major}.{package.Id.Version.Minor}.{package.Id.Version.Build}.{package.Id.Version.Revision}";
+            
+            Window.Current.SetTitleBar(AppTitleBarGrid);
+            
+            Window.Current.CoreWindow.SizeChanged += (s, e) => UpdateAppTitle();
+            coreTitleBar.LayoutMetricsChanged += (s, e) => UpdateAppTitle();
+        }
+        
+        private void UpdateAppTitle()
+        {
+            var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
+            LeftPaddingColumn.Width = new GridLength(coreTitleBar.SystemOverlayLeftInset+8);
+            RightPaddingColumn.Width = new GridLength(coreTitleBar.SystemOverlayRightInset);
+            TitleBarButton.Margin = new Thickness(0,0,coreTitleBar.SystemOverlayRightInset,0);
+            AppTitleBarGrid.Height = coreTitleBar.Height;
         }
 
         private void MainPage_OnLoading(FrameworkElement sender, object args)

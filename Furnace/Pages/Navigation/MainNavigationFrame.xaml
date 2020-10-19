@@ -5,8 +5,19 @@
     xmlns:local="using:Furnace.Pages.Navigation"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource RegionBrush}">
+    
+    <!--<Page.Resources>
+        <AcrylicBrush x:Key="NavigationViewDefaultPaneBackground"
+                      BackgroundSource="Backdrop" TintColor="Blue" TintOpacity=".6"/>
+        <AcrylicBrush x:Key="NavigationViewTopPaneBackground"
+                      BackgroundSource="Backdrop" TintColor="Orange" TintOpacity=".6"/>
+        <AcrylicBrush x:Key="NavigationViewExpandedPaneBackground"
+                      BackgroundSource="Backdrop" TintColor="Green" TintOpacity=".6"/>
+        
+    </Page.Resources>-->
 
     <Grid>
         <Button Visibility="Visible" Height="0" Width="0" Click="QuickNavigateButton_Click">
@@ -22,11 +33,75 @@
             </NavigationView.MenuItems>
             <Frame x:Name="ContentFrame" Navigated="ContentFrame_OnNavigated" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
             <NavigationView.AutoSuggestBox>
-                <AutoSuggestBox Width="300" />
+                <AutoSuggestBox Width="260" PlaceholderText="Search Packs, Servers, Settings" />
             </NavigationView.AutoSuggestBox>
             <NavigationView.PaneFooter>
                 <StackPanel x:Name="FooterStackPanel" Orientation="Horizontal" Visibility="Visible">
                     <NavigationViewItem x:Name="UpdateButton" Visibility="Collapsed" Width="42" Icon="Download" Content="Update App" FontWeight="Bold" AutomationProperties.Name="update" />
+                    <NavigationViewItem Width="42">
+                        <Grid Height="42" Width="42" Margin="-16 0 0 0">
+                            <controls:RadialProgressBar x:Name="RadialProgressBarControl"
+                                                        Width="26"
+                                                        Height="26"
+                                                        HorizontalAlignment="Center" 
+                                                        Value="70" 
+                                                        Minimum="0" 
+                                                        Maximum="100"
+                                                        Thickness="2"
+                                                        Outline="{ThemeResource RegionBrush}" 
+                                                        IsIndeterminate="True"
+                                                        Foreground="{ThemeResource SystemControlHighlightAccentBrush}">
+                            </controls:RadialProgressBar>
+                        </Grid>
+                        <NavigationViewItem.ContextFlyout>
+                            <Flyout>
+                                <StackPanel Padding="4" CornerRadius="10">
+                                    <Grid Width="350" 
+                                          MinHeight="70" 
+                                          Padding="16" 
+                                          CornerRadius="10"
+                                          Background="{StaticResource AccentAcrylic}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>    
+                                        <StackPanel Grid.Column="0">
+                                            <TextBlock TextWrapping="WrapWholeWords" Style="{StaticResource TitleTextBlockStyle}" FontSize="17" Text="Background Task Name" />
+                                            <TextBlock TextWrapping="WrapWholeWords" Style="{StaticResource BodyTextBlockStyle}" Text="Background Task Progress (30/100)" />
+                                        </StackPanel>
+                                        <Grid Grid.Column="1">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="*" />
+                                            </Grid.RowDefinitions>
+                                            <controls:RadialProgressBar Grid.Row="1"
+                                                                        Width="40"
+                                                                        Height="40"
+                                                                        HorizontalAlignment="Center" 
+                                                                        VerticalAlignment="Center"
+                                                                        Value="30" 
+                                                                        Minimum="0" 
+                                                                        Maximum="100"
+                                                                        Thickness="2"
+                                                                        Outline="{StaticResource RegionAcrylic}" 
+                                                                        IsIndeterminate="False"
+                                                                        Foreground="{ThemeResource SystemControlHighlightAccentBrush}" />
+                                        </Grid>
+                                    </Grid>
+                                </StackPanel>
+                            </Flyout>
+                        </NavigationViewItem.ContextFlyout>
+                    </NavigationViewItem>
+                    <NavigationViewItem Width="42">
+                        <Grid Height="42" Width="42" Margin="-16 0 0 0">
+                            <PersonPicture Width="26" 
+                                           Height="26" 
+                                           HorizontalAlignment="Center" 
+                                           Initials="I" />
+                        </Grid>
+                        
+                    </NavigationViewItem>
                     <NavigationViewItem Tapped="Settings_Tapped"  Width="42" Icon="Setting" AutomationProperties.Name="settings" />
                 </StackPanel>
             </NavigationView.PaneFooter>

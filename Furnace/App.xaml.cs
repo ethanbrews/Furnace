@@ -5,8 +5,11 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -70,7 +73,30 @@ namespace Furnace
                 }
                 // Ensure the current window is active
                 Window.Current.Activate();
+                ExtendAcrylicIntoTitleBar();
+                ReloadTheme();
             }
+        }
+
+        public void ReloadTheme()
+        {
+            // Reload theme from the value defined in Settings.AppSettings.SelectedTheme;
+            // Change the theme for Window.Current.Content and change the titlebar button foreground colours
+            var theme = (Settings.AppSettings.SelectedTheme == ElementTheme.Default) ? 
+                ((RequestedTheme == ApplicationTheme.Dark) ? ElementTheme.Dark : ElementTheme.Light) : Settings.AppSettings.SelectedTheme;
+
+            ((Frame)Window.Current.Content).RequestedTheme = theme;
+            var titleBar = ApplicationView.GetForCurrentView().TitleBar.ButtonForegroundColor = (theme == ElementTheme.Dark) ? Colors.White : Colors.Black;
+
+        }
+
+        private void ExtendAcrylicIntoTitleBar()
+        {
+            // Extend acrylic into the title bar. NO theming here
+            CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
+            var titleBar = ApplicationView.GetForCurrentView().TitleBar;
+            titleBar.ButtonBackgroundColor = Colors.Transparent;
+            titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
         }
 
         /// <summary>

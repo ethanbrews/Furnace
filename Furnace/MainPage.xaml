@@ -10,6 +10,41 @@
     Loading="MainPage_OnLoading">
 
     <Grid>
-        <Frame x:Name="MainPageFrame" />
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="0" x:Name="AppTitleBarGrid" Background="{StaticResource NavigationViewTopPaneBackground}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="LeftPaddingColumn" Width="0" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition x:Name="RightPaddingColumn" Width="0" />
+            </Grid.ColumnDefinitions>
+            <Grid IsHitTestVisible="False" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="180" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" x:Name="AppTitleTextBlock"
+                           HorizontalAlignment="Left"
+                           xmlns:appmodel="using:Windows.ApplicationModel"
+                           Style="{StaticResource CaptionTextBlockStyle}"
+                           IsHitTestVisible="False"
+                           Margin="0 8 0 0"
+                           Canvas.ZIndex="1" />
+                <Button Visibility="Collapsed" Grid.Column="3" x:Name="TitleBarButton" 
+                        Content="Error loading resource"
+                        HorizontalAlignment="Center"
+                        Canvas.ZIndex="1"
+                        IsHitTestVisible="True" />
+            </Grid>
+        </Grid>
+        
+        <Frame Grid.Row="1" x:Name="MainPageFrame" />
     </Grid>
 </Page>
