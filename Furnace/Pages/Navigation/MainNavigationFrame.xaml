@@ -1,0 +1,35 @@
+﻿<Page
+    x:Class="Furnace.Pages.Navigation.MainNavigationFrame"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Furnace.Pages.Navigation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource RegionBrush}">
+
+    <Grid>
+        <Button Visibility="Visible" Height="0" Width="0" Click="QuickNavigateButton_Click">
+            <Button.KeyboardAccelerators>
+                <KeyboardAccelerator IsEnabled="True" Key="K" Modifiers="Control" />
+            </Button.KeyboardAccelerators>
+        </Button>
+        <NavigationView x:Name="MainNavigationBar" PaneDisplayMode="Top" IsSettingsVisible="False" SelectionChanged="MainNavigationBar_OnSelectionChanged">
+            <NavigationView.MenuItems>
+                <NavigationViewItem Tag="Installed" Content="Installed" x:Name="InstalledNavItem" />
+                <NavigationViewItem Tag="Servers" Content="Servers" x:Name="ServersNavItem" />
+                <NavigationViewItem Tag="Discover" Content="Discover" x:Name="DiscoverNavItem" />
+            </NavigationView.MenuItems>
+            <Frame x:Name="ContentFrame" Navigated="ContentFrame_OnNavigated" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+            <NavigationView.AutoSuggestBox>
+                <AutoSuggestBox Width="300" />
+            </NavigationView.AutoSuggestBox>
+            <NavigationView.PaneFooter>
+                <StackPanel x:Name="FooterStackPanel" Orientation="Horizontal" Visibility="Visible">
+                    <NavigationViewItem x:Name="UpdateButton" Visibility="Collapsed" Width="42" Icon="Download" Content="Update App" FontWeight="Bold" AutomationProperties.Name="update" />
+                    <NavigationViewItem Tapped="Settings_Tapped"  Width="42" Icon="Setting" AutomationProperties.Name="settings" />
+                </StackPanel>
+            </NavigationView.PaneFooter>
+        </NavigationView>
+    </Grid>
+</Page>

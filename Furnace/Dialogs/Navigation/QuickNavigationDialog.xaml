@@ -1,0 +1,34 @@
+﻿<ContentDialog
+    x:Class="Furnace.Dialogs.Navigation.QuickNavigationDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Furnace.Dialogs.Navigation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="Quick Navigation Menu"
+    Loaded="QuickNavigationDialog_OnLoaded"
+    Background="{ThemeResource RegionBrush}">
+
+    <Grid KeyDown="GridOrButton_KeyDown">
+        <ListView x:Name="ShortcutsList" SelectionChanged="ShortcutsList_OnSelectionChanged">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid HorizontalAlignment="Stretch">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="4*" />
+                        </Grid.ColumnDefinitions> 
+                        <TextBlock Grid.Column="0" HorizontalAlignment="Stretch" FontFamily="Consolas" Style="{StaticResource BaseTextBlockStyle}" Text="{Binding Key}" />
+                        <TextBlock Grid.Column="1" HorizontalAlignment="Stretch" Style="{StaticResource BodyTextBlockStyle}" Text="{Binding Value}" />
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</ContentDialog>

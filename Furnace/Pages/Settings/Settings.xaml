@@ -1,0 +1,104 @@
+﻿<Page
+    x:Class="Furnace.Pages.Settings.Settings"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Furnace.Pages.Settings"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d"
+    Background="{ThemeResource RegionBrush}">
+
+    <Page.Resources>
+        <Style x:Key="SectionStyle" TargetType="StackPanel">
+            <Setter Property="Margin" Value="0 10" />
+            <Setter Property="Background" Value="{ThemeResource SystemControlAcrylicElementBrush}" />
+            <Setter Property="CornerRadius" Value="20" />
+            <Setter Property="Padding" Value="20" />
+        </Style>
+    </Page.Resources>
+
+    <ScrollViewer>
+        <StackPanel Padding="20 20 20 40">
+            <StackPanel Style="{StaticResource SectionStyle}">
+                <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="General" />
+                <TextBlock Margin="0 10 0 0" Style="{StaticResource BaseTextBlockStyle}" Text="Furnace Major.Minor.Build.Revision" />
+                <TextBlock Style="{StaticResource BaseTextBlockStyle}" Text="© 2020 Ethan Brews" />
+                <TextBlock Style="{StaticResource BaseTextBlockStyle}">Package Family:  <Run Text="Family Name" /></TextBlock>
+                <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                    <StackPanel.Resources>
+                        <Style TargetType="Button">
+                            <Setter Property="Margin" Value="0 0 5 0" />
+                        </Style>
+                    </StackPanel.Resources>
+                    <Button Content="Issue Tracker" />
+                    <Button Content="Manage App Permissions" />
+                    <Button Content="Terms of Use" />
+                    <Button Content="Privacy Policy" />
+                    <Button Content="App Website" />
+                </StackPanel>
+                
+            </StackPanel>
+
+            <StackPanel Style="{StaticResource SectionStyle}">
+                <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Java Settings" />
+                <StackPanel Margin="0 15 0 0" Orientation="Horizontal">
+                    <controls:NumberBox
+                        Header="Maximum Allocated Memory:"
+                        Value="1"
+                        SpinButtonPlacementMode="Inline"
+                        SmallChange="1"
+                        LargeChange="2" />
+                    <ComboBox Margin="10 0 0 0" Header=" ">
+                        <ComboBoxItem Content="Gb" IsSelected="True" />
+                        <ComboBoxItem Content="Mb" />
+                    </ComboBox>
+                    <TextBlock Margin="20 28 0 0" Style="{StaticResource CaptionTextBlockStyle}" Text="16Gb of RAM is available in this system." />
+                </StackPanel>
+                <ComboBox Margin="0 5 0 0" Header="Java Version:" MinWidth="300" HorizontalAlignment="Stretch" IsEnabled="False">
+                    <ComboBoxItem Content="Java 14.0.1.0 (64bit)" IsSelected="True"></ComboBoxItem>
+                </ComboBox>
+                <TextBox Margin="0 5 0 0" Header="Additional JVM Arguments:" MinWidth="300" HorizontalAlignment="Stretch" />
+            </StackPanel>
+
+            <StackPanel Style="{StaticResource SectionStyle}">
+                <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Game Settings" />
+                <ToggleSwitch Margin="0 15 0 0" Header="Open Console when game launches" OffContent="No" OnContent="Yes" IsOn="True" />
+                <ComboBox Margin="0 5 0 0" Header="Preferred Release Type:" MinWidth="300" HorizontalAlignment="Stretch">
+                    <ComboBoxItem Content="Release" IsSelected="True"></ComboBoxItem>
+                    <ComboBoxItem Content="Snapshot"></ComboBoxItem>
+                </ComboBox>
+            </StackPanel>
+
+            <StackPanel Style="{StaticResource SectionStyle}">
+                <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="App Settings" />
+                <ComboBox Margin="0 15 0 0" Header="Show Notifications:" MinWidth="300" HorizontalAlignment="Stretch">
+                    <ComboBoxItem Content="Automatically" IsSelected="True"></ComboBoxItem>
+                    <ComboBoxItem Content="In-app"></ComboBoxItem>
+                    <ComboBoxItem Content="In notification center"></ComboBoxItem>
+                </ComboBox>
+                <ComboBox Margin="0 5 0 0" Header="Notify me:" MinWidth="300" HorizontalAlignment="Stretch">
+                    <ComboBoxItem Content="Always" IsSelected="True"></ComboBoxItem>
+                    <ComboBoxItem Content="When app is in-focus"></ComboBoxItem>
+                    <ComboBoxItem Content="When app is out-of-focus"></ComboBoxItem>
+                </ComboBox>
+            </StackPanel>
+
+            <StackPanel Style="{StaticResource SectionStyle}">
+                <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Analytics and Crash Reports" />
+                <ToggleSwitch Margin="0 15 0 0" Header="Collect anonymous analytics data:" OffContent="No" OnContent="Yes" IsOn="True" />
+                <ToggleSwitch Margin="0 5 0 0" Header="Collect anonymous crash and error reports:" OffContent="No" OnContent="Yes" IsOn="True" />
+                <TextBlock TextWrapping="WrapWholeWords" Margin="0 5 0 0" Style="{StaticResource CaptionTextBlockStyle}" Text="Analytics and crash reports are collected in accordance with the privacy policy and terms of service. These settings are regarding analytics and crash reporting for the app itself, not Minecraft. Analytics are collected anonymously for the purposes of improving the app. Crash reports are anonymous and are published to the public GitHub error tracker." />
+            </StackPanel>
+
+            <StackPanel Style="{StaticResource SectionStyle}">
+                <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Theme" />
+                <controls:RadioButtons Margin="0 15 0 0">
+                    <RadioButton Content="Light" />
+                    <RadioButton Content="Dark" />
+                    <RadioButton Content="Windows Default" />
+                </controls:RadioButtons>
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</Page>
