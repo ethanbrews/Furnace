@@ -33,11 +33,11 @@ namespace Furnace.Pages.Navigation
         private void Settings_Tapped(object sender, TappedRoutedEventArgs e) =>
             NavigateFrame(typeof(Settings.Settings));
 
-        public void NavigateFrame(Type pageType)
+        public void NavigateFrame(Type pageType, object parameter = null, NavigationTransitionInfo transitionInfo = null)
         {
             if (ContentFrame.CurrentSourcePageType == pageType)
                 return;
-            ContentFrame.Navigate(pageType, null, new ContinuumNavigationTransitionInfo());
+            ContentFrame.Navigate(pageType, parameter, transitionInfo ?? new EntranceNavigationTransitionInfo());
         }
 
         private void MainNavigationBar_OnSelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
@@ -45,10 +45,13 @@ namespace Furnace.Pages.Navigation
             switch (((FrameworkElement)args?.SelectedItem)?.Tag)
             {
                 case "Installed":
+                    NavigateFrame(typeof(Pages.General.Installed), transitionInfo: args.RecommendedNavigationTransitionInfo);
                     break;
                 case "Discover":
+                    NavigateFrame(typeof(Pages.General.Discover), transitionInfo: args.RecommendedNavigationTransitionInfo);
                     break;
                 case "Servers":
+                    NavigateFrame(typeof(Pages.General.Servers), transitionInfo: args.RecommendedNavigationTransitionInfo);
                     break;
             }
         }
@@ -70,6 +73,19 @@ namespace Furnace.Pages.Navigation
         private async void QuickNavigateButton_Click(object sender, RoutedEventArgs e)
         {
             await Helpers.DialogHelper.ScheduleDialogAsync(new QuickNavigationDialog(this));
+        }
+
+        private void BackgroundTaskIndicator_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            Point screenCoords = (sender as FrameworkElement).TransformToVisual(Window.Current.Content).TransformPoint(new Point(0, 0));
+            MainPage.Current.DebugMessage = $"({sender.GetType()}) @ {screenCoords}";
+            BackgroundTaskListFlyout.ShowAt((sender as FrameworkElement), new FlyoutShowOptions
+            {
+                ExclusionRect = new Rect(new Point(0, 0), new Size(MainNavigationBar.Width, MainNavigationBar.Height+32)),
+                Placement = FlyoutPlacementMode.Bottom,
+                //Position = new Point(MainNavigationBar.Width - 400, MainNavigationBar.Height + 40),
+                ShowMode = FlyoutShowMode.Standard
+            });
         }
     }
 }

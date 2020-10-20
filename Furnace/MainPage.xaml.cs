@@ -26,10 +26,13 @@ namespace Furnace
     /// </summary>
     public sealed partial class MainPage : Page
     {
+
+        public static MainPage Current;
         public MainPage()
         {
+            Current = this;
             this.InitializeComponent();
-            
+
             var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
             var package = Package.Current;
             AppTitleTextBlock.Text =
@@ -40,7 +43,13 @@ namespace Furnace
             Window.Current.CoreWindow.SizeChanged += (s, e) => UpdateAppTitle();
             coreTitleBar.LayoutMetricsChanged += (s, e) => UpdateAppTitle();
         }
-        
+
+        public string DebugMessage
+        {
+            set => DebugTextBlock.Text = value;
+            get => DebugTextBlock.Text;
+        }
+
         private void UpdateAppTitle()
         {
             var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
@@ -54,6 +63,9 @@ namespace Furnace
         {
             MainPageFrame.Navigate(typeof(Pages.Navigation.MainNavigationFrame), null,
                 new SuppressNavigationTransitionInfo());
+#if DEBUG
+            DebugTextBlock.Visibility = Visibility.Visible;
+#endif
         }
     }
 }

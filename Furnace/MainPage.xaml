@@ -44,7 +44,7 @@
                         IsHitTestVisible="True" />
             </Grid>
         </Grid>
-        
+        <TextBlock Margin="0 40 0 0" FontWeight="ExtraBold" Text="Debug message not set" x:Name="DebugTextBlock" Visibility="Collapsed" Grid.Row="1" Style="{StaticResource TitleTextBlockStyle}" Canvas.ZIndex="10" IsHitTestVisible="False" />
         <Frame Grid.Row="1" x:Name="MainPageFrame" />
     </Grid>
 </Page>

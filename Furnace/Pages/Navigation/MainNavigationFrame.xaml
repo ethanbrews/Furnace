@@ -38,7 +38,7 @@
             <NavigationView.PaneFooter>
                 <StackPanel x:Name="FooterStackPanel" Orientation="Horizontal" Visibility="Visible">
                     <NavigationViewItem x:Name="UpdateButton" Visibility="Collapsed" Width="42" Icon="Download" Content="Update App" FontWeight="Bold" AutomationProperties.Name="update" />
-                    <NavigationViewItem Width="42">
+                    <NavigationViewItem Width="42" Tapped="BackgroundTaskIndicator_OnTapped">
                         <Grid Height="42" Width="42" Margin="-16 0 0 0">
                             <controls:RadialProgressBar x:Name="RadialProgressBarControl"
                                                         Width="26"
@@ -54,7 +54,7 @@
                             </controls:RadialProgressBar>
                         </Grid>
                         <NavigationViewItem.ContextFlyout>
-                            <Flyout>
+                            <Flyout x:Name="BackgroundTaskListFlyout">
                                 <StackPanel Padding="4" CornerRadius="10">
                                     <Grid Width="350" 
                                           MinHeight="70" 
