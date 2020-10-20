@@ -7,7 +7,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
-    Background="{ThemeResource RegionBrush}">
+    Background="{ThemeResource RegionBrush}"
+    Loaded="MainNavigationFrame_OnLoaded">
     
     <!--<Page.Resources>
         <AcrylicBrush x:Key="NavigationViewDefaultPaneBackground"
@@ -55,40 +56,52 @@
                         </Grid>
                         <NavigationViewItem.ContextFlyout>
                             <Flyout x:Name="BackgroundTaskListFlyout">
-                                <StackPanel Padding="4" CornerRadius="10">
-                                    <Grid Width="350" 
-                                          MinHeight="70" 
-                                          Padding="16" 
-                                          CornerRadius="10"
-                                          Background="{StaticResource AccentAcrylic}">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="Auto" />
-                                        </Grid.ColumnDefinitions>    
-                                        <StackPanel Grid.Column="0">
-                                            <TextBlock TextWrapping="WrapWholeWords" Style="{StaticResource TitleTextBlockStyle}" FontSize="17" Text="Background Task Name" />
-                                            <TextBlock TextWrapping="WrapWholeWords" Style="{StaticResource BodyTextBlockStyle}" Text="Background Task Progress (30/100)" />
-                                        </StackPanel>
-                                        <Grid Grid.Column="1">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="*" />
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="*" />
-                                            </Grid.RowDefinitions>
-                                            <controls:RadialProgressBar Grid.Row="1"
-                                                                        Width="40"
-                                                                        Height="40"
-                                                                        HorizontalAlignment="Center" 
-                                                                        VerticalAlignment="Center"
-                                                                        Value="30" 
-                                                                        Minimum="0" 
-                                                                        Maximum="100"
-                                                                        Thickness="2"
-                                                                        Outline="{StaticResource RegionAcrylic}" 
-                                                                        IsIndeterminate="False"
-                                                                        Foreground="{ThemeResource SystemControlHighlightAccentBrush}" />
-                                        </Grid>
-                                    </Grid>
+                                <Flyout.FlyoutPresenterStyle>
+                                    <Style TargetType="FlyoutPresenter">
+                                        <Setter Property="Padding" Value="0" />
+                                        <Setter Property="Margin" Value="0" />
+                                    </Style> 
+                                </Flyout.FlyoutPresenterStyle>
+                                <StackPanel Padding="16" CornerRadius="10">
+                                    <ItemsControl x:Name="BackgroundTaskListItemsControl">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid Width="350" 
+                                                      MinHeight="70" 
+                                                      Padding="16" 
+                                                      CornerRadius="10"
+                                                      Background="{StaticResource AccentAcrylic}">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>    
+                                                <StackPanel Grid.Column="0">
+                                                    <TextBlock TextWrapping="WrapWholeWords" Style="{StaticResource TitleTextBlockStyle}" FontSize="17" Text="{Binding Title}" />
+                                                    <TextBlock TextWrapping="WrapWholeWords" Style="{StaticResource BodyTextBlockStyle}" Text="{Binding Description}" />
+                                                </StackPanel>
+                                                <Grid Grid.Column="1">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="*" />
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="*" />
+                                                    </Grid.RowDefinitions>
+                                                    <controls:RadialProgressBar Grid.Row="1"
+                                                                                Width="40"
+                                                                                Height="40"
+                                                                                HorizontalAlignment="Center" 
+                                                                                VerticalAlignment="Center"
+                                                                                Value="{Binding Status.CompletedItems}" 
+                                                                                Minimum="0" 
+                                                                                Maximum="{Binding Status.TotalItems}"
+                                                                                Thickness="2"
+                                                                                Outline="{StaticResource RegionAcrylic}" 
+                                                                                IsIndeterminate="False"
+                                                                                Foreground="{ThemeResource SystemControlHighlightAccentBrush}" />
+                                                    </Grid>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
                                 </StackPanel>
                             </Flyout>
                         </NavigationViewItem.ContextFlyout>

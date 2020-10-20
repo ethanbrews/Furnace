@@ -119,6 +119,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AppBackgroundTask\AppTaskManager.cs" />
+    <Compile Include="AppBackgroundTask\BackgroundTask.cs" />
+    <Compile Include="AppBackgroundTask\BackgroundTaskProgress.cs" />
     <Compile Include="Controls\ModpackPanel.xaml.cs">
       <DependentUpon>ModpackPanel.xaml</DependentUpon>
     </Compile>
@@ -130,11 +133,13 @@
     <Compile Include="Helpers\DialogHelper.cs" />
     <Compile Include="Helpers\LocalSettings\LocalSettingsValue.cs" />
     <Compile Include="Helpers\StorageHelper.cs" />
+    <Compile Include="Helpers\ThreadHelper.cs" />
     <Compile Include="Helpers\WebHelper.cs" />
     <Compile Include="Helpers\WindowHelper.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modpack\TestBackgroundTask.cs" />
     <Compile Include="Pages\General\Discover.xaml.cs">
       <DependentUpon>Discover.xaml</DependentUpon>
     </Compile>

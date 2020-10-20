@@ -7,6 +7,11 @@
       <e p="Furnace" t="IncludeRecursive">
         <e p="App.xaml" t="Include" />
         <e p="App.xaml.cs" t="Include" />
+        <e p="AppBackgroundTask" t="Include">
+          <e p="AppTaskManager.cs" t="Include" />
+          <e p="BackgroundTask.cs" t="Include" />
+          <e p="BackgroundTaskProgress.cs" t="Include" />
+        </e>
         <e p="Assets" t="Include">
           <e p="LockScreenLogo.scale-200.png" t="Include" />
           <e p="SplashScreen.scale-200.png" t="Include" />
@@ -38,13 +43,16 @@
             <e p="LocalSettingsValue.cs" t="Include" />
           </e>
           <e p="StorageHelper.cs" t="Include" />
+          <e p="ThreadHelper.cs" t="Include" />
           <e p="WebHelper.cs" t="Include" />
           <e p="WindowHelper.cs" t="Include" />
         </e>
         <e p="MainPage.xaml" t="Include" />
         <e p="MainPage.xaml.cs" t="Include" />
         <e p="Minecraft" t="Include" />
-        <e p="Modpack" t="Include" />
+        <e p="Modpack" t="Include">
+          <e p="TestBackgroundTask.cs" t="Include" />
+        </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="x64" t="Include">
             <e p="Debug" t="Include">

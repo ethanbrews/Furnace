@@ -6,6 +6,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.System.Inventory;
+using Windows.UI.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -14,9 +15,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
-using Furnace.Dialogs.Navigation;
-
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
+using Furnace.Dialogs.Navigation; 
 
 namespace Furnace.Pages.Navigation
 {
@@ -77,15 +76,18 @@ namespace Furnace.Pages.Navigation
 
         private void BackgroundTaskIndicator_OnTapped(object sender, TappedRoutedEventArgs e)
         {
-            Point screenCoords = (sender as FrameworkElement).TransformToVisual(Window.Current.Content).TransformPoint(new Point(0, 0));
-            MainPage.Current.DebugMessage = $"({sender.GetType()}) @ {screenCoords}";
-            BackgroundTaskListFlyout.ShowAt((sender as FrameworkElement), new FlyoutShowOptions
+            // Showing at null means Position is relative to (0,0) on the window.
+            BackgroundTaskListFlyout.ShowAt(null, new FlyoutShowOptions
             {
-                ExclusionRect = new Rect(new Point(0, 0), new Size(MainNavigationBar.Width, MainNavigationBar.Height+32)),
-                Placement = FlyoutPlacementMode.Bottom,
-                //Position = new Point(MainNavigationBar.Width - 400, MainNavigationBar.Height + 40),
-                ShowMode = FlyoutShowMode.Standard
+                Position = new Point(((Frame)Window.Current.Content).ActualWidth - 205, 190)
             });
+            
+        }
+
+        private void MainNavigationFrame_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            BackgroundTaskListItemsControl.ItemsSource = App.AppTaskManager.RunningTasks;
+            App.AppTaskManager.BeginTask(new Modpack.TestBackgroundTask());
         }
     }
 }
