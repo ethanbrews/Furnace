@@ -1,11 +1,20 @@
 ﻿using Windows.UI.Xaml;
 using Furnace.Helpers.LocalSettings;
+using System.Linq;
 
 namespace Furnace.Settings
 {
     public static class AppSettings
     {
         private static LocalSettingsValue<string> _SelectedTheme = new LocalSettingsValue<string>("SelectedTheme", "System");
+
+        private static LocalSettingsValue<string> selectedAccountEmail = new LocalSettingsValue<string>("SelectedAccountEmail", null);
+
+        public static Yggdrasil.Json.Account.MojangAccount SelectedAccount
+        {
+            get => App.AccountManager.MojangAccounts.Where(x => (x.User.Email == (selectedAccountEmail.Value ?? "")) || (x.User.Username == (selectedAccountEmail.Value ?? ""))).FirstOrDefault();
+            set => selectedAccountEmail.Value = value?.User?.Email ?? value?.User?.Username;
+        }
 
         public static ElementTheme SelectedTheme
         {

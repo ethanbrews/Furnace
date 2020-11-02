@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Furnace.Pages.Navigation;
+using Windows.UI.Xaml.Media.Animation;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -28,34 +29,36 @@ namespace Furnace.Dialogs.Navigation
         {
             this.InitializeComponent();
             _frame = frame;
-
+            Window.Current.CoreWindow.CharacterReceived += CoreWindow_CharacterReceived;
         }
 
-        private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private void CoreWindow_CharacterReceived(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.CharacterReceivedEventArgs e)
         {
+            System.Diagnostics.Debug.WriteLine(e.KeyCode);
+            // K = 11
+            
         }
 
-        private void GridOrButton_KeyDown(object sender, KeyRoutedEventArgs e) 
+        private void ProcessKeyCode(int x)
         {
-            System.Diagnostics.Debug.WriteLine(e.Key);
-            switch (e.Key)
+            switch (x)
             {
-                case VirtualKey.I:
-                    _frame.NavigateFrame(typeof(Pages.General.Installed));
+                case 105: //I
+                    _frame.NavigateFrame(typeof(Pages.General.Installed), transitionInfo: new SuppressNavigationTransitionInfo());
                     break;
-                case VirtualKey.S:
-                    _frame.NavigateFrame(typeof(Pages.General.Servers));
+                case 115: //S
+                    _frame.NavigateFrame(typeof(Pages.General.Servers), transitionInfo: new SuppressNavigationTransitionInfo());
                     break;
-                case VirtualKey.D:
-                    _frame.NavigateFrame(typeof(Pages.General.Discover));
+                case 100: //D
+                    _frame.NavigateFrame(typeof(Pages.General.Discover), transitionInfo: new SuppressNavigationTransitionInfo());
                     break;
-                case VirtualKey.O:
-                    _frame.NavigateFrame(typeof(Pages.Settings.Settings));
+                case 111: //O
+                    _frame.NavigateFrame(typeof(Pages.Settings.Settings), transitionInfo: new SuppressNavigationTransitionInfo());
                     break;
-                case VirtualKey.Q:
-                    _frame.NavigateFrame(typeof(Pages.Settings.Diagnostics));
+                case 113: //Q
+                    _frame.NavigateFrame(typeof(Pages.Settings.Diagnostics), transitionInfo: new SuppressNavigationTransitionInfo());
                     break;
-                case VirtualKey.Escape:
+                case 27: //ESC
                     break;
                 default:
                     return;
@@ -66,19 +69,21 @@ namespace Furnace.Dialogs.Navigation
 
         private void QuickNavigationDialog_OnLoaded(object sender, RoutedEventArgs e)
         {
-            ShortcutsList.ItemsSource = new Dictionary<string, string>
+            ShortcutsList.ItemsSource = new Tuple<string, string, int>[]
             {
-                {"I", "Installed"},
-                {"S", "Servers"},
-                {"D", "Discover"},
-                {"O", "Settings"},
-                {"Q", "Debug Page"},
+                new Tuple<string, string, int>("I", "Installed", 105),
+                new Tuple<string, string, int>("S", "Servers", 115),
+                new Tuple<string, string, int>("D", "Discover", 100),
+                new Tuple<string, string, int>("O", "Settings", 111),
+                new Tuple<string, string, int>("Q", "Debug Page", 113),
+                new Tuple<string, string, int>("ESC", "Cancel", 27),
             };
         }
 
         private void ShortcutsList_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
+            var ctx = (sender as ListView).SelectedItem as Tuple<string, string, int>;
+            ProcessKeyCode(ctx.Item3);
         }
     }
 }

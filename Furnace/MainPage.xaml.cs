@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -16,6 +17,8 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
+using Furnace.Helpers;
+using Furnace.Pages.Console;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -24,14 +27,26 @@ namespace Furnace
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class MainPage : Page
+    public sealed partial class MainPage : Page, INotifyPropertyChanged
     {
 
         public static MainPage Current;
+
+        private List<string> _consoleLines;
+        public string ConsoleLines => string.Join('\n', _consoleLines);
+
+        public void Log(string ln)
+        {
+            _consoleLines.Add(ln);
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ConsoleLines"));
+        }
+        
         public MainPage()
         {
             Current = this;
             this.InitializeComponent();
+            
+            _consoleLines = new List<string>();
 
             var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
             var package = Package.Current;
@@ -63,9 +78,11 @@ namespace Furnace
         {
             MainPageFrame.Navigate(typeof(Pages.Navigation.MainNavigationFrame), null,
                 new SuppressNavigationTransitionInfo());
-#if DEBUG
-            DebugTextBlock.Visibility = Visibility.Visible;
-#endif
+
+            System.Diagnostics.Debug.WriteLine(Furnace.Settings.AppSettings.SelectedAccount);
+
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

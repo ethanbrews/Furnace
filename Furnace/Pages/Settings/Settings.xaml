@@ -41,6 +41,14 @@
             </StackPanel>
 
             <StackPanel Style="{StaticResource SectionStyle}">
+                <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="App Storage" />
+                <TextBlock Margin="0 10 0 0" Style="{StaticResource BaseTextBlockStyle}" Text="Windows doesn't allow a UWP application to be saved in a specific location." />
+                <Button Content="Open App Folder" Click="OpenAppStorageButton_Click" />
+
+
+            </StackPanel>
+
+            <StackPanel Style="{StaticResource SectionStyle}">
                 <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Java Settings" />
                 <StackPanel Margin="0 15 0 0" Orientation="Horizontal">
                     <controls:NumberBox

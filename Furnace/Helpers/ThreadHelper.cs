@@ -28,7 +28,7 @@ namespace Furnace.Helpers
     {
         public static async Task RunOnUIThreadAsync(Windows.UI.Core.DispatchedHandler handler)
         {
-            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, handler);
+            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, handler);
         }
     }
 }

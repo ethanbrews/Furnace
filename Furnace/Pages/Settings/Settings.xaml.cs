@@ -5,6 +5,8 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -26,5 +28,7 @@ namespace Furnace.Pages.Settings
         {
             this.InitializeComponent();
         }
+
+        private async void OpenAppStorageButton_Click(object sender, RoutedEventArgs e) => await Launcher.LaunchFolderAsync(ApplicationData.Current.LocalFolder);
     }
 }

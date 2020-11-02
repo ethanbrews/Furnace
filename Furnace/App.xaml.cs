@@ -28,6 +28,7 @@ namespace Furnace
     {
 
         public static AppTaskManager AppTaskManager;
+        public static Yggdrasil.AccountManager AccountManager;
         
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -38,6 +39,8 @@ namespace Furnace
             this.InitializeComponent();
             this.Suspending += OnSuspending;
             AppTaskManager = new AppTaskManager();
+            AccountManager = new Yggdrasil.AccountManager();
+            _ = AccountManager.LoadMojangAccountsFromFileAsync();
         }
 
         /// <summary>

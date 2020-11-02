@@ -122,13 +122,18 @@
     <Compile Include="AppBackgroundTask\AppTaskManager.cs" />
     <Compile Include="AppBackgroundTask\BackgroundTask.cs" />
     <Compile Include="AppBackgroundTask\BackgroundTaskProgress.cs" />
+    <Compile Include="AppHttpClient.cs" />
     <Compile Include="Controls\ModpackPanel.xaml.cs">
       <DependentUpon>ModpackPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\InverseBoolConverter.cs" />
     <Compile Include="Converters\InverseBoolToVisibilityConverter.cs" />
     <Compile Include="Dialogs\Navigation\QuickNavigationDialog.xaml.cs">
       <DependentUpon>QuickNavigationDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\Yggdrasil\LoginDialog.xaml.cs">
+      <DependentUpon>LoginDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\DialogHelper.cs" />
     <Compile Include="Helpers\LocalSettings\LocalSettingsValue.cs" />
@@ -140,6 +145,9 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modpack\TestBackgroundTask.cs" />
+    <Compile Include="Pages\Console\DebugConsoleWindow.xaml.cs">
+      <DependentUpon>DebugConsoleWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\General\Discover.xaml.cs">
       <DependentUpon>Discover.xaml</DependentUpon>
     </Compile>
@@ -160,6 +168,13 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\AppSettings.cs" />
+    <Compile Include="Yggdrasil\AccountManager.cs" />
+    <Compile Include="Yggdrasil\Json\Account.cs" />
+    <Compile Include="Yggdrasil\Json\AuthenticateRequest.cs" />
+    <Compile Include="Yggdrasil\Json\Error.cs" />
+    <Compile Include="Yggdrasil\Json\RefreshRequest.cs" />
+    <Compile Include="Yggdrasil\Json\ValidateRequest.cs" />
+    <Compile Include="Yggdrasil\YggdrasilError.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -189,10 +204,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Dialogs\Yggdrasil\LoginDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Pages\Console\DebugConsoleWindow.xaml" />
     <Page Include="Pages\General\Discover.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -250,8 +270,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Minecraft\" />
-    <Folder Include="Modpack\" />
-    <Folder Include="Yggdrasil\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

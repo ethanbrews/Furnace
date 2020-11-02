@@ -17,6 +17,9 @@
                           BackgroundSource="Backdrop" TintColor="{ThemeResource SystemAccentColor}" TintOpacity=".2"/>
             <AcrylicBrush x:Key="RegionAcrylic"
                           BackgroundSource="Backdrop" TintColor="{ThemeResource RegionColor}" TintOpacity=".5"/>
+            <AcrylicBrush x:Key="SystemControlPageBackgroundBaseMediumBrush"
+                          BackgroundSource="Backdrop" TintColor="{ThemeResource RegionColor}" TintOpacity=".5"/>
+            
         </ResourceDictionary>
     </Application.Resources>
 

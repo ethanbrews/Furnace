@@ -10,7 +10,7 @@
     Loaded="QuickNavigationDialog_OnLoaded"
     Background="{ThemeResource RegionBrush}">
 
-    <Grid KeyDown="GridOrButton_KeyDown">
+    <Grid>
         <ListView x:Name="ShortcutsList" SelectionChanged="ShortcutsList_OnSelectionChanged">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
@@ -24,8 +24,8 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="4*" />
                         </Grid.ColumnDefinitions> 
-                        <TextBlock Grid.Column="0" HorizontalAlignment="Stretch" FontFamily="Consolas" Style="{StaticResource BaseTextBlockStyle}" Text="{Binding Key}" />
-                        <TextBlock Grid.Column="1" HorizontalAlignment="Stretch" Style="{StaticResource BodyTextBlockStyle}" Text="{Binding Value}" />
+                        <TextBlock Grid.Column="0" HorizontalAlignment="Stretch" FontFamily="Consolas" Style="{StaticResource BaseTextBlockStyle}" Text="{Binding Item1}" />
+                        <TextBlock Grid.Column="1" HorizontalAlignment="Stretch" Style="{StaticResource BodyTextBlockStyle}" Text="{Binding Item2}" />
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
